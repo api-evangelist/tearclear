@@ -1,0 +1,62 @@
+# TearClear
+
+> TearClear Corp. is a clinical-stage ophthalmic pharmaceutical company. It develops a
+> preservative-removing drug delivery platform — a chemical filter built into a conventional
+> multi-dose eye-drop bottle that captures benzalkonium chloride (BAK) at the point of
+> instillation — so a medication stays preserved in the bottle but reaches the ocular surface
+> preservative-free. TearClear ships drug products and delivery hardware, not software.
+
+<!-- generated: 2026-08-29 | method: generated | source: apis.yml + API Evangelist enrichment probes 2026-08-29 -->
+
+## What TearClear is
+
+- Founded 2015. Clinical-stage ophthalmic pharmaceutical company.
+- Platform: a porous oxidized-polyethylene (OxPO / OxHDPE) filter integrated into the bottle
+  tip, which strips benzalkonium chloride from the drop as it is dispensed.
+- Lead candidate: TC-002 (latanoprost ophthalmic solution 0.005%), which met the primary and
+  all secondary endpoints in the CLEAR Phase 3 pivotal glaucoma trial.
+- Pipeline behind it: TC-001 (timolol), TC-003 (brimonidine/timolol), TC-004 (brimonidine).
+- Privately held; funded through later-stage venture rounds. Its shares appear on secondary
+  marketplaces, which is how this company entered the API Evangelist harvest backlog.
+
+## API surface
+
+**TearClear publishes no API.** As of 2026-08-29 there is no developer portal, no
+documentation site, no OpenAPI/AsyncAPI/GraphQL/MCP surface, no SDK in any public package
+registry, and no GitHub organization. This is not a gap in our research — it is what a
+pharmaceutical company that sells a drug-device combination product looks like.
+
+Probes run on 2026-08-29:
+
+- `https://tearclear.com/` — HTTP 403 (see below)
+- `https://tearclear.com/openapi.json`, `/openapi.yaml`, `/swagger.json`, `/api-docs`,
+  `/apis.json`, `/llms.txt`, `/graphql`, `/mcp` — HTTP 403
+- `https://tearclear.com/.well-known/security.txt`, `/openid-configuration`,
+  `/oauth-authorization-server`, `/oauth-protected-resource`, `/api-catalog`,
+  `/ai-plugin.json`, `/agent-card.json`, `/agent.json` — HTTP 403
+- `https://api.tearclear.com/`, `https://developer.tearclear.com/`,
+  `https://docs.tearclear.com/` — DNS does not resolve
+- `https://api.github.com/orgs/tearclear` — HTTP 404
+- npm, PyPI registry searches for `tearclear` — no packages
+
+## Website status
+
+The corporate site at tearclear.com is not currently served. The domain resolves to
+SiteGround shared hosting where it is no longer provisioned as a virtual host: every request
+falls to the default vhost, returns a 21-byte `403 | Access blocked` body with
+`x-default-vhost: 1`, and is presented under a TLS certificate for `gcam1074.siteground.biz`
+that does not cover tearclear.com. The Internet Archive holds no successful capture of the
+site after 2024-07-24. Company email remains configured (Microsoft 365 MX, SPF, DMARC at
+p=none), and no public announcement of a wind-down or acquisition was found.
+
+## Artifacts in this profile
+
+- `well-known/tearclear-well-known.yml` — the /.well-known/ and contract-discovery probe log
+- `security/tearclear-domain-security.yml` — DNS/TLS/SPF/DMARC posture (probed)
+
+## Sources
+
+- https://www.linkedin.com/company/tearclear
+- https://www.hiive.com/securities/tearclear-stock
+- https://www.globenewswire.com/news-release/2022/09/29/2525541/0/en/TearClear-Announces-Positive-Topline-Results-from-CLEAR-Phase-3-Study-for-the-Treatment-of-Glaucoma-with-TC-002-latanoprost-ophthalmic-solution-0-005.html
+- https://patents.google.com/patent/US20200345583A1/en

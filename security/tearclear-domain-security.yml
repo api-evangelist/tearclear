@@ -1,0 +1,58 @@
+generated: '2026-08-29'
+method: probed
+source: tearclear.com (DNS + TLS live probe)
+note: >-
+  Probed by hand rather than by probe-domain-security.py, because that script reads hosts
+  only from a `Website`/`Portal` pointer in apis.yml and this repo intentionally carries no
+  Website pointer: tearclear.com does not serve. Absence of a record is valid data.
+hosts:
+- host: tearclear.com
+  probed: '2026-08-29'
+  dns:
+    a:
+    - 35.215.120.120
+    ns:
+    - ns07.domaincontrol.com
+    - ns08.domaincontrol.com
+    mx:
+    - tearclear-com.mail.protection.outlook.com
+    dnssec: false
+    dnssec_evidence: no DNSKEY record returned for tearclear.com
+    caa: false
+    caa_evidence: no CAA record returned for tearclear.com
+    spf: true
+    spf_record: v=spf1 include:spf.protection.outlook.com -all
+    dmarc: true
+    dmarc_record: 'v=DMARC1; p=none; aspf=r; adkim=r;'
+    dmarc_policy: none
+    dmarc_note: >-
+      p=none is monitor-only; it publishes a DMARC record but instructs receivers to take
+      no action on failures.
+  https:
+    reachable: true
+    http_status: 403
+    tls_protocol: TLSv1.3
+    tls_cipher: TLS_AES_256_GCM_SHA384
+    certificate:
+      subject_cn: gcam1074.siteground.biz
+      issuer: "Let's Encrypt"
+      not_before: '2026-07-29'
+      not_after: '2026-10-27'
+      covers_host: false
+      hostname_mismatch: >-
+        The certificate presented for tearclear.com carries only
+        DNS:gcam1074.siteground.biz in its SAN list, so any client verifying the hostname
+        fails the handshake. curl returns error 60 without -k.
+    hsts: false
+    hsts_evidence: no Strict-Transport-Security header on the 403 response
+    server: nginx
+    response_headers_of_note:
+      x-default-vhost: '1'
+      sg-captcha: challenge
+      x-robots-tag: noindex
+  assessment: >-
+    Email is live and conventionally configured (Microsoft 365 MX, SPF with -all, DMARC at
+    p=none), but the web presence is not: the domain resolves to SiteGround shared hosting
+    where it is not provisioned as a virtual host, so every request falls to the default
+    vhost and is refused with 403 under a certificate for another name. No DNSSEC, no CAA,
+    no HSTS.

@@ -1,0 +1,78 @@
+generated: '2026-08-29'
+method: probed
+source: https://tearclear.com/.well-known/
+note: >-
+  Every /.well-known/ path on TearClear's registered corporate domain returned HTTP 403
+  from an nginx origin that also emits `x-default-vhost: 1` and `sg-captcha: challenge`,
+  and presents a TLS certificate for `gcam1074.siteground.biz` rather than tearclear.com.
+  The domain is no longer provisioned as a virtual host on the server it points at, so the
+  403 is the shared-hosting default vhost answering, not a document. NO 200 was returned on
+  any path, so NO WellKnown or SecurityTxt pointer is emitted for this repo — this file
+  records a verified absence, not a served surface.
+hosts:
+- host: tearclear.com
+  probed: '2026-08-29'
+  origin_note: >-
+    Resolves to 35.215.120.120 (SiteGround shared hosting). Root URL and every probed path
+    answer 403 with a 21-byte "403 | Access blocked" body over both HTTP and HTTPS, with a
+    browser User-Agent. Certificate subject is gcam1074.siteground.biz (no SAN for
+    tearclear.com), and the response carries `x-default-vhost: 1`.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 403
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    file: null
+contract_discovery:
+  note: >-
+    STEP 0b contract discovery run against the only host this company is known to control.
+    No API host, developer subdomain or docs subdomain resolves.
+  probes:
+  - url: https://tearclear.com/openapi.json
+    status: 403
+  - url: https://tearclear.com/openapi.yaml
+    status: 403
+  - url: https://tearclear.com/swagger.json
+    status: 403
+  - url: https://tearclear.com/api-docs
+    status: 403
+  - url: https://tearclear.com/apis.json
+    status: 403
+  - url: https://tearclear.com/llms.txt
+    status: 403
+  - url: https://tearclear.com/graphql
+    status: 403
+  - url: https://tearclear.com/mcp
+    status: 403
+  - url: https://api.tearclear.com/
+    status: 0
+    note: DNS does not resolve
+  - url: https://developer.tearclear.com/
+    status: 0
+    note: DNS does not resolve
+  - url: https://docs.tearclear.com/
+    status: 0
+    note: DNS does not resolve
+  - url: https://api.github.com/orgs/tearclear
+    status: 404
+    note: no GitHub organization
+  result: no machine-readable contract found
